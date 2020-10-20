@@ -1,0 +1,220 @@
+* {
+    font-family: Impact;
+    font-size: 1.2rem;
+  }
+
+body {
+  background-color: #8fbc8f;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+h1 {
+  font-size: xxx-large;
+  display: flex;
+  justify-content: center;
+  margin: 20px 0px 20px 0px;
+}
+
+#stage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  width: auto;
+}
+
+.game {
+  height: auto;
+  width: auto;
+}
+
+.levels {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.5em;
+  align-items: center;
+}
+
+.levelButton {
+  padding: 5px 0.5em ;
+  border: 1px solid #dbffdb;
+  background-color: #2F3D2F;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 0.5em;
+  font-size: 1.2em;
+  color: #dbffdb;
+}
+
+.levelButton:hover {
+  background-color: #dbffdb;
+  color: #2f3d2f;
+}
+
+.stats {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.5em;
+  align-items: center;
+}
+
+#flags {
+  height: 1em;
+  margin: 0;
+  padding: 0;
+}
+
+.time {
+  font-size: 1.2em;
+  padding: 10px;
+  margin: 5px 10px 5px 0px;
+}
+
+#timer {
+  height: 1em;
+  margin: 0;
+  padding: 0;
+}
+
+.mines { 
+  font-size: 1.2em;
+  padding: 10px;
+  margin: 5px 10px 5px 0px;
+}
+
+.gridwrapper {
+    width: auto;
+    height: auto;
+    padding: 0px 10px 10px 10px;
+}
+  
+.grid {
+  display: grid;
+  /* grid-template-columns: repeat(18, 1fr);
+  grid-template-rows: repeat(14, 1fr); */
+  border-color: #2f3d2f;
+  padding:0px 5px 5px 5px;
+  width: auto;
+  height: auto;
+}
+
+.tile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  background-repeat: no-repeat;
+  background-size: cover;
+  max-width: 40px;
+  max-height: 40px;
+  border: 1px solid #2f3d2f;
+  color: black;
+  font-size: 1em;
+  margin: 0;
+}
+
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  /* background: rgba(108, 96, 112, 0.7); */
+  /* background: rgba(0, 0, 0, 0.5); */
+  z-index: 999;
+  opacity: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  visibility: hidden;
+  animation-fill-mode: forwards;
+}
+
+#overlay * {
+  pointer-events: none;
+}
+
+#overlay.active {
+  visibility: visible;
+  animation-fill-mode: forwards;
+}
+
+#endres {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  /* flex-wrap: wrap; */
+  background-color: rgba(187, 158, 214, 0.95);
+  padding: 5px;
+  border-radius: 5px;
+  }
+
+#endres p {
+  text-align: center;
+  font-size: 1em;
+}
+
+p.res {
+  margin: 0;
+  color: rgb(158, 240, 204);
+}
+
+p.len {
+  margin: 0;
+  color: rgb(158, 240, 204);
+}
+
+@media all and (max-width: 800px) and (orientation: landscape) {
+  h1 {
+    font-size: x-large;
+    padding: 0;
+    margin: 2px 5px 5px 5px;
+  }
+  .levels {
+    padding: 0;
+    margin: 0;
+  }
+  .levelButton {
+    font-size: medium;
+    margin-bottom: 0;
+  }
+  .stats {
+    padding: 0;
+    margin: 0;
+  }
+  #timer {
+    max-height: 0.65em;
+    margin: 0;
+  }
+  .time {
+    font-size: medium;
+    margin: 0;
+  }
+  #flags {
+    max-height: 0.65em;
+    margin: 0;
+  }
+  .mines {
+    font-size: medium;
+    margin: 0;
+  }
+  .tile {
+    width: 16px;
+    height: 16px;
+    /* width: 0.5em;
+    height: 0.5em; */
+    font-size: 0.65em;
+  }
+  #endres p {
+    font-size: 0.65em;
+  }
+
+}
