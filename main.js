@@ -1,5 +1,9 @@
 window.addEventListener('load', main);
 
+/*
+* creates tiles for the grid
+* tile number depends on size of game
+*/
 function prep(){
     const grid = document.querySelector(".grid");
     const nTiles = game.nrows * game.ncols;
@@ -16,16 +20,22 @@ function prep(){
         tile_mark(i);
       });
       grid.appendChild(tile);
+
+      // if window  width is 800px or less
+      // taphold is used for marking tiles instead of right click
       if (window.matchMedia("(max-width: 800px)").matches) {
         tile.id = "tile" + i;
         $("#tile" + i).bind("taphold", () => {
           tile_mark(i);
         });
       }
-      
-      console.log("i made tile");
     }
-    
+
+    // changes size of grid and tiles based on the size of screen
+    // if width of screen is less than 800px
+    // new height (size of screen - 400px)
+    // height divided by size of level's rows
+    // resulting in tile's new width and height
     let html = document.querySelector("html");
     console.log("Your render area:", html.clientWidth, "x", html.clientHeight)
     let height = html.clientHeight - 240;
@@ -42,6 +52,12 @@ function prep(){
 
   }
 
+
+/*
+* updates DOM to show grid and any changes
+* - gets game's rendering for updating the tiles
+* - subtracts or adds the amount of mines are marked
+*/
 function render() {
   const grid = document.querySelector(".grid");
   const rend = game.getRendering();
@@ -51,8 +67,7 @@ function render() {
     const col = i % game.ncols;
     const row = Math.floor(i / game.ncols);
     const tileind = rend[row][col];
-    make_cell(tileind, i);
-    console.log("i make tiles");
+    make_tile(tileind, i);
   }
   document.querySelectorAll(".mines").forEach(
     (e)=> {
@@ -61,7 +76,12 @@ function render() {
 
 }
 
-function make_cell(tileind, ind) {
+/*
+* creates tiles depending on their rendering
+* - checks condition of tile based on its index
+* - changes appearance of tile based on condition
+*/
+function make_tile(tileind, ind) {
   const grid = document.querySelector(".grid");
   if (tileind !== "F") {
     grid.childNodes[ind].style.backgroundImage = "none";
@@ -83,6 +103,14 @@ function make_cell(tileind, ind) {
   
 }
 
+/*
+* callback for clickin a tile
+* - if first click on board, time starts
+* - calculates position of row and column of tile
+* - uncovers position of row and column through game engine
+* - renders game to show what is uncovered
+* - if game is done, end of game function called and time stops
+*/
 function tile_click(ind) {
   if(game.nuncovered === 0) {
     start_time();
@@ -90,8 +118,6 @@ function tile_click(ind) {
   const col = ind % game.ncols;
   const row = Math.floor(ind / game.ncols);
   game.uncover(row, col);
-  const grender = game.getRendering();
-  console.log(grender.join("\n"));
   render();
   if(game.getStatus().done) {
       end_game();  
@@ -99,15 +125,23 @@ function tile_click(ind) {
     }
 }
 
+/*
+* callback for marking a tile
+* - calculates position of row and column of tile
+* - marks position of row and column through game engine
+* - renders game to show flag
+*/
 function tile_mark(ind) {
   const col = ind % game.ncols;
   const row = Math.floor(ind / game.ncols);
   game.mark(row, col);
-  const grender = game.getRendering();
-  console.log(grender.join("\n"));
   render();
 }
 
+/*
+* displays overlay when game ends
+* type of message depends on if win or lose
+*/
 function end_game() {
   document.querySelector("#overlay").classList.toggle("active");
   if(game.exploded) {
@@ -119,9 +153,12 @@ function end_game() {
   }
 }
 
-let t = 0;
-let time = null;
+let t = 0;  // variable for incrementing time
+let time = null; // variable for time
 
+/*
+* starts time of game
+*/
 function start_time() {
   time = setInterval(function(){
     t++;
@@ -132,15 +169,29 @@ function start_time() {
   }, 1000);  
 }
 
+/*
+* stops time of game
+*/
 function stop_time(){
    if(time) window.clearInterval(time);
 }
 
+/*
+* restarts time of game
+*/
 function restart_time(){
   t = 0;
   document.querySelector(".time").innerHTML = ('000' + t).substr(-3);
 }
 
+/*
+* callback for level buttons
+* - sets the rows and columns of grid
+* - sets number of bombs based on number of rows
+* - renders game
+* - stops time if previous game is still going on
+* - restarts time
+*/
 function level_set(rows, cols) {
   if(rows == 8) {
     bombs = 10;
@@ -159,33 +210,24 @@ let game = new MSGame();
 
 function main() {
 
-    // $(document).contextmenu(function() {
-    //     return false;
-    // });
-
+    // disables context menu within game
     document.addEventListener("contextmenu", e => {
       e.preventDefault();
     });
 
+    // register callbacks for level buttons
     document.querySelectorAll(".levelButton").forEach((button) =>{
       let rows = button.getAttribute("rows");
       let cols = button.getAttribute("cols");
       button.addEventListener("click", level_set.bind(null, rows, cols));
     });
 
-    // document.querySelectorAll(".levelButton").forEach((button) =>{
-    //   [rows,cols] = button.getAttribute("data-size").split("x").map(s=>Number(s));
-    //   button.addEventListener("click", level_set.bind(null, rows, cols));
-    // });
-
+    // callback for overlay - hides overlay and restarts game
     document.querySelector("#overlay").addEventListener("click", () => {
       document.querySelector("#overlay").classList.remove("active");
       level_set(game.nrows, game.ncols);
     });
   
-    
-    // game.init(8,10,10);
+    // simulates starting at easy level
     level_set(8,10);
-    //prep();
-    // render();
 }
