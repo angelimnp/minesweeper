@@ -205,13 +205,5 @@ let MSGame = (function(){
 // console.log(game.getRendering().join("\n"));
 // console.log(game.getStatus());
 
-// game.init(14,18,40);
-// console.log(game.getRendering().join("\n"));
-// console.log(game.getStatus());
-
-// game.uncover(2,5);
-// console.log(game.getRendering().join("\n"));
-// console.log(game.getStatus());
-
-console.log("end");
+// console.log("end");
 
