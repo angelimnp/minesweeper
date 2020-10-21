@@ -73,8 +73,7 @@ h1 {
   padding: 0;
 }
 
-.time {
-  background: rgba(0, 0, 0, 0);
+.mines { 
   font-size: 1.2em;
   padding: 10px;
   margin: 5px 10px 5px 0px;
@@ -86,7 +85,8 @@ h1 {
   padding: 0;
 }
 
-.mines { 
+.time {
+  background: rgba(0, 0, 0, 0);
   font-size: 1.2em;
   padding: 10px;
   margin: 5px 10px 5px 0px;
@@ -103,8 +103,6 @@ h1 {
   
 .grid {
   display: grid;
-  /* grid-template-columns: repeat(18, 1fr);
-  grid-template-rows: repeat(14, 1fr); */
   border-color: #2f3d2f;
   padding:0px 5px 5px 5px;
   width: auto;
@@ -132,7 +130,6 @@ h1 {
   left: 0;
   width: 100vw;
   height: 100vh;
-  /* background: rgba(108, 96, 112, 0.7); */
   background: rgba(0, 0, 0, 0);
   background-color: none;
   z-index: 999;
@@ -185,6 +182,10 @@ p.len {
   * {
     background-color: #8fbc8f;
   }
+  body {
+    height: 100vh;
+    width: 100vw;
+  }
   h1 {
     font-size: x-large;
     padding: 0;
@@ -198,7 +199,14 @@ p.len {
     font-size: medium;
     margin-bottom: 0;
   }
-  .stats {
+  #flags {
+    max-height: 0.65em;
+    margin: 0;
+  }
+  .mines {
+    font-size: medium;
+    margin: 0;
+  }.stats {
     padding: 0;
     margin: 0;
   }
@@ -210,19 +218,9 @@ p.len {
     font-size: medium;
     margin: 0;
   }
-  #flags {
-    max-height: 0.65em;
-    margin: 0;
-  }
-  .mines {
-    font-size: medium;
-    margin: 0;
-  }
   .tile {
-    width: 16px;
-    height: 16px;
-    /* width: 0.5em;
-    height: 0.5em; */
+    width: 20px;
+    height: 20px;
     font-size: 0.65em;
   }
   #endres p {
