@@ -16,6 +16,13 @@ function prep(){
         tile_mark(i);
       });
       grid.appendChild(tile);
+      if (window.matchMedia("(max-width: 800px)").matches) {
+        tile.id = "tile" + i;
+        $("#tile" + i).bind("taphold", () => {
+          tile_mark(i);
+        });
+      }
+      
       console.log("i made tile");
     }
     
@@ -23,10 +30,10 @@ function prep(){
     console.log("Your render area:", html.clientWidth, "x", html.clientHeight)
     let height = html.clientHeight - 240;
     if(html.clientWidth < 800) {
-      height = html.clientHeight - 240;
+      height = html.clientHeight - 400;
     }
     if(html.clientWidth < 800 && html.clientHeight < 1200) {
-      height = html.clientHeight - 240;
+      height = html.clientHeight - 400;
     }
     document.querySelectorAll(".tile").forEach ( (tile) => {
         tile.style.width = (height / game.nrows) + "px";
@@ -88,8 +95,7 @@ function tile_click(ind) {
   render();
   if(game.getStatus().done) {
       end_game();  
-      stop_time();
-          
+      stop_time();      
     }
 }
 
@@ -152,6 +158,14 @@ function level_set(rows, cols) {
 let game = new MSGame();
 
 function main() {
+
+    // $(document).contextmenu(function() {
+    //     return false;
+    // });
+
+    document.addEventListener("contextmenu", e => {
+      e.preventDefault();
+    });
 
     document.querySelectorAll(".levelButton").forEach((button) =>{
       let rows = button.getAttribute("rows");
